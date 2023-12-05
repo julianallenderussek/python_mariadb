@@ -16,15 +16,20 @@ conn = mariadb.connect(
 
 cursor = conn.cursor()
 # I am running a SQL query directly
-# cursor.execute('call get_items()')
-# result = cursor.fetchall()
-# print(result)
 
 sql= "CALL insert_item(?,?)"
 data= (newItem, float(newPrice))
 cursor.execute(sql, data) 
 # Commit the transaction
 conn.commit()
+
+cursor.execute('call get_items()')
+result = cursor.fetchall()
+print(result)
+
+for item in result:
+ print(item)
+ 
 
 cursor.close();
 conn.close();
